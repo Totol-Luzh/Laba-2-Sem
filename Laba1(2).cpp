@@ -33,7 +33,7 @@ void Vvod(country* p)
 }
 
 void Vivod(country* p, int i) {
-	printf("\n%s, %s, %d, %d \n", p[i].title, p[i].capital, p[i].population, p[i].square);
+	printf("\n%d %s, %s, %d, %d \n", i, p[i].title, p[i].capital, p[i].population, p[i].square);
 }
 
 int gg(char* str, char* h) {
@@ -102,7 +102,7 @@ int Izmen(country* p) {
 			}
 			break;
 		case 4:
-			x=scanf_s("%d", &p->population);
+			x=scanf_s("%d", &p->square);
 			if (!x) {
 				printf("Данные введены не верно ");
 				return 1;
