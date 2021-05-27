@@ -1,4 +1,4 @@
-﻿#include <locale.h>
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
@@ -14,6 +14,8 @@ struct stack {
 	tree* cell;
 	stack* next;
 };
+
+void Free(tree** source);
 
 void Put(stack** memory, tree* ukazatel){
 	stack* n=NULL;
@@ -179,16 +181,35 @@ void Del_el(tree* current, tree* previous) {
 
 void Del_main(tree** main){
 	tree* helper=NULL,* assistant=NULL, * current=*main, *n;
-	if (current->right == NULL && current->left == NULL)
+	if (current->coat > 1)
+		current->coat = current->coat - 1; 
+	else{
+		if (current->right == NULL && current->left == NULL)
+			main = NULL;
+		if (current->right != NULL) {
+			assistant = current->right;
+			current->right = NULL;
+		}
+		if (current->left != NULL) {
+			helper = current->left;
+		}
+		if (helper != NULL && assistant!=NULL) {
+			current = helper;
+			while (current->right != NULL) {
+				helper = current->right;
+				current = helper;
+			}
+			current->right = assistant;
+		}
 		main = NULL;
-	if (current->right != NULL){
-		assistant = current->right;
-		current->right = NULL;
+		if (current != NULL)
+			*main = current;
+		else
+			if (helper == NULL)
+				*main = assistant;
+			else
+				*main = helper;
 	}
-	if (current->left != NULL) {
-		helper = current->left;
-	}
-
 }
 
 void Search(tree** p, int sought, int k) {
@@ -217,9 +238,9 @@ void Search(tree** p, int sought, int k) {
 		current = helper;
 	}
 	if (k == 1) {//Удаление элемента
-		/*if (current == assistant)
+		if (current == assistant)
 			Del_main(p);
-		else*/
+		else
 			Del_el(current, assistant);
 	}
 }
@@ -297,8 +318,8 @@ void Free(tree** source){
 		helper = current->left;
 		Search(source, helper->number, 1);
 	}
-	//while(source!=NULL)
-	Del_main(source);
+	while(source!=NULL)
+		Del_main(source);
 }
 
 int main() {
