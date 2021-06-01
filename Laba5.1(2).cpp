@@ -136,9 +136,14 @@ void Operator(stack** top) {
 	}
 	if (number == 2) {		//Для for
 		Put(top, '2');
-		if (Scan(top) == 6)
-			while (Scan(top) != 7)
+		number = Scan(top);
+		if (number == 6) {
+			number = Scan(top);
+			while (number != 7) {
 				Operator(top);
+				number = Scan(top);
+			}
+		}
 		else Operator(top);
 		symbol = Take(top);
 		if (symbol != '2')
@@ -146,21 +151,32 @@ void Operator(stack** top) {
 	}
 	if (number == 3) {		//Для do
 		Put(top, '3');
-		if(Scan(top)!=6)
+		number = Scan(top);
+		if(number!=6)
 			printf("Error \n");
-		while (Scan(top) != 7)
-			 Operator(top);
-		if(Scan(top)!=4)
+		number = Scan(top);
+		while (number != 7) {
+			Operator(top);
+			number = Scan(top);
+		}
+		number = Scan(top);
+		if(number!=4)
 			printf("Error \n");
+		number = Scan(top);
 		symbol = Take(top);
 		if (symbol != '3')
 			printf("Error \n");
 	}
 	if (number == 4) {		//Для while
 		Put(top, '4');
-		if (Scan(top) == 6)
-			while (Scan(top) != 7)
+		number = Scan(top);
+		if (number == 6) {
+			number = Scan(top);
+			while (number != 7) {
 				Operator(top);
+				number = Scan(top);
+			}
+		}
 		else Operator(top);
 		symbol = Take(top);
 		if (symbol != '4')
