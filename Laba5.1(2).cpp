@@ -89,14 +89,17 @@ int Copy(char* str, stack** top, int n, int k) { // Функция сравне�
 }
 
 int Scan(stack **top){
-	int n, k, l, x = 0, g = 0;
-	char str[10];
-	for (row = 0; row<50; row++) {
-		column = 0;
-		while (ms[row][column] != '\0' && ms[row][column] != '\n') {
-			while (ms[row][column] == ' ' || ms[row][column] == '(' || ms[row][column] == '{' || ms[row][column] == '}' || ms[row][column] != '\t') {
+	int n=0, k=0, l=0, x = 0, f=row;
+	for (row ; row<50; row++) {
+		if (row > f) {
+			column = 0;
+			f = row;
+		}
+		while( ms[row][column] != '\0' && ms[row][column] != '\n') {
+			while (ms[row][column] == ' ' || ms[row][column] == '(' || ms[row][column] == '{' || ms[row][column] == '}' || ms[row][column] == '\t') {
 				if (ms[row][column] == '{' || ms[row][column] == '}') {
 					x = Copy(ms[row], top, column, column);
+					if(x!=8)
 					return x;
 				}
 				if (ms[row][column] == '(')
@@ -112,9 +115,10 @@ int Scan(stack **top){
 				return x;
 		}
 	}
+	return 0;
 }
 
-void Operator(stack** top) {
+int Operator(stack** top) {
 	int k = 0;
 	char symbol;
 	if(number==0)
@@ -184,7 +188,7 @@ void Operator(stack** top) {
 	}
 	if(Print_stack!=0)
 		printf("Error \n");
-
+	return k;
 
 }
 
@@ -194,7 +198,7 @@ int main() {
 	SetConsoleOutputCP(1251);
 	FILE* s;
 	stack* top = NULL;
-	int i, k;
+	int i, k=0;
 	
 	fopen_s(&s, "CodeC.txt", "a+");
 	if (!s) {
@@ -207,7 +211,8 @@ int main() {
 		k = i;
 		//Poisk(str, &top);
 	}
-	Operator(&top);
+	while(row<k)
+		Operator(&top);
 
 
 
