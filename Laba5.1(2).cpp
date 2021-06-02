@@ -90,6 +90,7 @@ int Copy(char* str, stack** top, int n, int k) { // Функция сравне�
 
 int Scan(stack **top){
 	int n=0, k=0, l=0, x = 0, f=row;
+
 	for (row ; row<50; row++) {
 		if (row > f) {
 			column = 0;
@@ -110,8 +111,9 @@ int Scan(stack **top){
 			k = column - 1;
 			l = n;
 			x = Copy(ms[row], top, n, k);
-			if(x!=8)
+			if (x != 8)
 				return x;
+			
 		}
 	}
 	return 0;
@@ -132,7 +134,7 @@ int Operator(stack** top) {
 				number = Scan(top);
 			}
 		}
-		else if (number != 7)
+		else //if (number != 7)
 				Operator(top);
 		symbol = Take(top);
 		if (symbol != '1')
@@ -166,6 +168,7 @@ int Operator(stack** top) {
 		number = Scan(top);
 		if(number!=4)
 			printf("Error \n");
+		column++;
 		number = Scan(top);
 		symbol = Take(top);
 		if (symbol != '3')
