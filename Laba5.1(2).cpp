@@ -67,13 +67,13 @@ int Print_stack(stack* memory) {
 
 int Copy(char* str, stack** top, int n, int k) { // Функция сравнения операторов и слов
 	int i, j, l=k-n+1, x, kl;
-	char table[][10] = { "if", "for", "do", "while", "switch", '{', '}'};
-	for(j=0;j<5;j++){
+	char table[][10] = { "if", "for", "do", "while", "switch", "{", "}"};
+	for(j=0;j<7;j++){
 		//printf("\n");
 		x = n; kl = 0;
 		for(i=0;i<l+1;i++){
 			if (str[x] == table[j][i]) { 
-				printf("%c", str[x]);
+				//printf("%c", str[x]);
 				kl++; 
 			}
 			else
@@ -97,14 +97,13 @@ int Scan(stack **top){
 		}
 		while( ms[row][column] != '\0' && ms[row][column] != '\n') {
 			while (ms[row][column] == ' ' || ms[row][column] == '(' || ms[row][column] == '{' || ms[row][column] == '}' || ms[row][column] == '\t') {
-				if (ms[row][column] == '{' || ms[row][column] == '}') {
+				if (ms[row][column] == '{' || ms[row][column] == '}')
 					x = Copy(ms[row], top, column, column);
-					if(x!=8)
-					return x;
-				}
 				if (ms[row][column] == '(')
 					while (ms[row][column] != ')')column++;
 				column++;
+				if (x != 8 && x!=0)
+						return x;
 			}
 			n = column;
 			while (ms[row][column] != ' ' && ms[row][column] != '\n' && ms[row][column] != '\0' && ms[row][column] != '(' && ms[row][column] != '{' && ms[row][column] != '\t' && ms[row][column] != ';') column++;
@@ -133,7 +132,8 @@ int Operator(stack** top) {
 				number = Scan(top);
 			}
 		}
-		else Operator(top);
+		else if (number != 7)
+				Operator(top);
 		symbol = Take(top);
 		if (symbol != '1')
 			printf("Error \n");
